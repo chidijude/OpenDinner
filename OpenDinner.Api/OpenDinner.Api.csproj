@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>1134923e-92be-4692-bbc2-fee1b94eff27</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenDinner.Contracts\OpenDinner.Contracts.csproj" />
+    <!--<ProjectReference Include="..\OpenDinner.Application\OpenDinner.Application.csproj" />-->
+    <ProjectReference Include="..\OpenDinner.Infrastructure\OpenDinner.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
