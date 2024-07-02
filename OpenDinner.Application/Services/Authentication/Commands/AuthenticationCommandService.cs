@@ -5,16 +5,17 @@ using OneOf;
 using OpenDinner.Application.Common.Errors;
 using OpenDinner.Application.Common.Interfaces.Authentication;
 using OpenDinner.Application.Persistence;
+using OpenDinner.Application.Services.Authentication.Common;
 using OpenDinner.Domain.Common.Errors;
 
-namespace OpenDinner.Application.Services.Authentication;
+namespace OpenDinner.Application.Services.Authentication.Commands;
 
-public class AuthenticationService : IAuthenticationService
+public class AuthenticationCommandService : IAuthenticationCommandService
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IUserRepository _userRepository;
 
-    public AuthenticationService(
+    public AuthenticationCommandService(
         IJwtTokenGenerator jwtTokenGenerator,
         IUserRepository userRepository)
     {
@@ -30,7 +31,7 @@ public class AuthenticationService : IAuthenticationService
             return Errors.User.DuplicateEmail;
             //return Result.Fail< AuthenticationResult>(new[] { new DuplicateEmailError() }); //For Fluent Error
         }
-        
+
         //Create user (generate unique ID) and persist to DB
         var user = new User
         {
@@ -49,27 +50,4 @@ public class AuthenticationService : IAuthenticationService
             user,
             token);
     }
-
-    public ErrorOr<AuthenticationResult> Login(string email, string password)
-    {     
-        // 1. Validate the user doesn't exist.
-        if (_userRepository.GetUserByEmail(email) is not User user)
-        {
-            return Errors.Authentication.InvalidCredentials;
-        }
-        // 2. Validate password is correct
-        if (user.Password != password)
-        {
-            return new[] { Errors.Authentication.InvalidCredentials };
-        }
-        // Create JWT token
-
-        var token = _jwtTokenGenerator.GenerateToken(user);
-
-        return new AuthenticationResult(
-            user,
-            token);
-    }
-
-     
 }

@@ -1,10 +1,10 @@
-using OpenDinner.Application.Services.Authentication;
-using OpenDinner.Contracts.Authentication;
-using Microsoft.AspNetCore.Mvc;
-using OpenDinner.Application.Common.Errors;
-using OneOf;
-using FluentResults;
 using ErrorOr;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using OpenDinner.Application.Authentication.Command.Register;
+using OpenDinner.Application.Authentication.Queries.Login;
+using OpenDinner.Application.Services.Authentication.Common;
+using OpenDinner.Contracts.Authentication;
 using OpenDinner.Domain.Common.Errors;
 
 namespace OpenDinner.Api.Controllers;
@@ -12,22 +12,19 @@ namespace OpenDinner.Api.Controllers;
 [Route("auth")]
 public class AuthenticationController : ApiController
 {
-    private readonly IAuthenticationService _authenticationService;
-    public AuthenticationController(IAuthenticationService authenticationService)
+    private readonly ISender _mediator;
+    public AuthenticationController(ISender mediator)
     {
-        _authenticationService = authenticationService;
+        _mediator = mediator;
     }
 
     [Route("register")]
     [HttpPost]
-    public IActionResult Register(RegisterRequest request)
+    public async Task<IActionResult> Register(RegisterRequest request)
     {
-        ErrorOr<AuthenticationResult> registerResult = _authenticationService.Register(
-            request.FirstName,
-            request.LastName,
-            request.Email,
-            request.Password
-        );
+
+        var command = new RegisterCommand(request.FirstName, request.LastName, request.Email, request.Password);
+        ErrorOr<AuthenticationResult> registerResult = await _mediator.Send(command);
 
         return registerResult.Match(
            authResult => Ok(MapAuthResult(authResult)),
@@ -86,14 +83,12 @@ public class AuthenticationController : ApiController
 
     [Route("login")]
     [HttpPost]
-    public IActionResult Login(LoginRequest request)
+    public async Task<IActionResult> Login(LoginRequest request)
     {
-        var loginResult = _authenticationService.Login(           
-            request.Email,
-            request.Password
-        );
-
-        if (loginResult.IsError && loginResult.FirstError == Errors.Authentication.InvalidCredentials) 
+        var query = new LoginQuery(request.Email, request.Password);
+        var loginResult = await _mediator.Send(query);
+        
+        if (loginResult.IsError && loginResult.FirstError == Errors.Authentication.InvalidCredentials)
         {
             return Problem(
                 statusCode: StatusCodes.Status401Unauthorized,
@@ -102,7 +97,7 @@ public class AuthenticationController : ApiController
 
         return loginResult.Match(
           authResult => Ok(MapAuthResult(authResult)),
-          errors => Problem(errors));       
-       
+          errors => Problem(errors));
+
     }
 }
