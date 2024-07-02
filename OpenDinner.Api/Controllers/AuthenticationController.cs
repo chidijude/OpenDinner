@@ -1,4 +1,5 @@
 using ErrorOr;
+using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OpenDinner.Application.Authentication.Command.Register;
@@ -13,9 +14,11 @@ namespace OpenDinner.Api.Controllers;
 public class AuthenticationController : ApiController
 {
     private readonly ISender _mediator;
-    public AuthenticationController(ISender mediator)
+    private readonly IMapper _mapper;
+    public AuthenticationController(ISender mediator, IMapper mapper)
     {
         _mediator = mediator;
+        _mapper = mapper;
     }
 
     [Route("register")]
@@ -23,11 +26,11 @@ public class AuthenticationController : ApiController
     public async Task<IActionResult> Register(RegisterRequest request)
     {
 
-        var command = new RegisterCommand(request.FirstName, request.LastName, request.Email, request.Password);
+        var command = _mapper.Map<RegisterCommand>(request);
         ErrorOr<AuthenticationResult> registerResult = await _mediator.Send(command);
 
         return registerResult.Match(
-           authResult => Ok(MapAuthResult(authResult)),
+           authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
            errors => Problem(errors)); //Problem method here is from the ApiController created.
 
         #region Fluent Error Region
@@ -69,23 +72,13 @@ public class AuthenticationController : ApiController
         //return Problem(statusCode: StatusCodes.Status409Conflict, title: "Email already exist");
         #endregion
 
-    }
-
-    private static AuthenticationResponse MapAuthResult(AuthenticationResult authResult)
-    {
-        return new AuthenticationResponse(
-            authResult.User.Id,
-            authResult.User.FirstName,
-            authResult.User.LastName,
-            authResult.User.Email,
-            authResult.Token);
-    }
+    } 
 
     [Route("login")]
     [HttpPost]
     public async Task<IActionResult> Login(LoginRequest request)
     {
-        var query = new LoginQuery(request.Email, request.Password);
+        var query = _mapper.Map<LoginQuery>(request);
         var loginResult = await _mediator.Send(query);
         
         if (loginResult.IsError && loginResult.FirstError == Errors.Authentication.InvalidCredentials)
@@ -96,7 +89,7 @@ public class AuthenticationController : ApiController
         }
 
         return loginResult.Match(
-          authResult => Ok(MapAuthResult(authResult)),
+          authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
           errors => Problem(errors));
 
     }

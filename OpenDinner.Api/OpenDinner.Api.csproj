@@ -13,4 +13,8 @@
     <ProjectReference Include="..\OpenDinner.Infrastructure\OpenDinner.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
+  </ItemGroup>
+
 </Project>
