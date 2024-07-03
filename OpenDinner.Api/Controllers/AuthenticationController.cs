@@ -1,6 +1,7 @@
 using ErrorOr;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OpenDinner.Application.Authentication.Command.Register;
 using OpenDinner.Application.Authentication.Queries.Login;
@@ -11,6 +12,7 @@ using OpenDinner.Domain.Common.Errors;
 namespace OpenDinner.Api.Controllers;
 
 [Route("auth")]
+[AllowAnonymous]
 public class AuthenticationController : ApiController
 {
     private readonly ISender _mediator;

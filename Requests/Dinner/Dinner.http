@@ -1,0 +1,8 @@
+@host=http://localhost:5260
+GET {{host}}/dinners
+Content-Type: application/json
+
+{
+    "email" : "cjude@qore.inc",
+    "password" : "Chidi112"
+}
