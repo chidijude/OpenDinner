@@ -18,3 +18,9 @@ Content-Type: application/json
     "email" : "cjude@qore.inc",
     "password" : "Chidi112"
 }
+
+###
+
+GET {{host}}/dinners
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnaXZlbl9uYW1lIjoiQ2hpZGkiLCJmYW1pbHlfbmFtZSI6Ikp1ZGUiLCJqdGkiOiIzMjM3OTY0NC05NjFlLTQ1M2EtODY5Zi0xNWNhOWQ1NzJkM2MiLCJzdWIiOiJkMWUzNDFlNy1hOGUwLTRkOGItYjdiZS00ZDNkMTIwYWI0ZDkiLCJleHAiOjE3MjAwNTAzMTcsImlzcyI6Ik9wZW5EaW5uZXIiLCJhdWQiOiJPcGVuRGlubmVyIn0.b77nmrd4JEzVzTIRZ3DyEf2kONGB42_Wew2zXKwZijc
