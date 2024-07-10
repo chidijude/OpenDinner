@@ -1,6 +1,6 @@
 ﻿using OpenDinner.Domain.Common.Models;
 
-namespace OpenDinner.Domain.MenuReview.ValueObjects;
+namespace OpenDinner.Domain.MenuReviewAggregate.ValueObjects;
 
 public sealed class MenuReviewId : ValueObject
 {

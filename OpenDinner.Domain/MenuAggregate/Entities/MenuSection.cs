@@ -1,7 +1,7 @@
 ﻿using OpenDinner.Domain.Common.Models;
-using OpenDinner.Domain.Menu.ValueObjects;
+using OpenDinner.Domain.MenuAggregate.ValueObjects;
 
-namespace OpenDinner.Domain.Menu.Entities;
+namespace OpenDinner.Domain.MenuAggregate.Entities;
 
 public sealed class MenuSection : Entity<MenuSectionId>
 {  

@@ -1,7 +1,7 @@
 ﻿
 using OpenDinner.Domain.Common.Models;
 
-namespace OpenDinner.Domain.Host.ValueObjects;
+namespace OpenDinner.Domain.HostAggregate.ValueObjects;
 
 public sealed class HostId : ValueObject
 {

@@ -1,6 +1,6 @@
 ﻿using OpenDinner.Domain.Common.Models;
 
-namespace OpenDinner.Domain.Dinner.ValueObjects;
+namespace OpenDinner.Domain.DinnerAggregate.ValueObjects;
 
 public sealed class DinnerId : ValueObject
 {

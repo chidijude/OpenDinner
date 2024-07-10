@@ -1,6 +1,6 @@
 ﻿using OpenDinner.Domain.Common.Models;
 
-namespace OpenDinner.Domain.Menu.ValueObjects;
+namespace OpenDinner.Domain.MenuAggregate.ValueObjects;
 
 public sealed class MenuSectionId : ValueObject
 {

@@ -1,11 +1,11 @@
 ﻿using OpenDinner.Domain.Common.Models;
-using OpenDinner.Domain.Dinner.ValueObjects;
-using OpenDinner.Domain.Host.ValueObjects;
-using OpenDinner.Domain.Menu.Entities;
-using OpenDinner.Domain.Menu.ValueObjects;
-using OpenDinner.Domain.MenuReview.ValueObjects;
+using OpenDinner.Domain.DinnerAggregate.ValueObjects;
+using OpenDinner.Domain.HostAggregate.ValueObjects;
+using OpenDinner.Domain.MenuAggregate.Entities;
+using OpenDinner.Domain.MenuAggregate.ValueObjects;
+using OpenDinner.Domain.MenuReviewAggregate.ValueObjects;
 
-namespace OpenDinner.Domain.Menu;
+namespace OpenDinner.Domain.MenuAggregate;
 
 public sealed class Menu : AggregateRoot<MenuId>
 {
