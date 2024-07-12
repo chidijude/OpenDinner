@@ -7,10 +7,17 @@ public sealed class MenuSection : Entity<MenuSectionId>
 {  
     private readonly List<MenuItem> _items = [];
 
-    public string Name { get; }
-    public string Description { get; }
+    public string Name {get; private set; }
+    public string Description {get; private set; }
 
     public IReadOnlyList<MenuItem> Items => _items.AsReadOnly();
+
+    #pragma warning disable CS8618
+    public MenuSection()
+    {
+        
+    }
+    #pragma warning restore CS8618
 
     public MenuSection(MenuSectionId id, string name, string description)
       : base(id)
@@ -39,7 +46,8 @@ public sealed class MenuSection : Entity<MenuSectionId>
         return new(
             MenuSectionId.CreateUnique(),
             name,
-            description);
+            description,
+            items);
     }
 
 

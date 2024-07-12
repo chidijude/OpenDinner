@@ -14,5 +14,9 @@ namespace OpenDinner.Domain.Common.Models
 
         }
 
+        protected AggregateRoot()
+        {
+            
+        }
     }
 }

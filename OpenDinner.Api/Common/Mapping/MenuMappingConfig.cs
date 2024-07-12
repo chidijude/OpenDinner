@@ -2,8 +2,8 @@
 using OpenDinner.Application.Menus.Commands.CreateMenu;
 using OpenDinner.Contracts.Menus;
 using OpenDinner.Domain.MenuAggregate;
-using MenuSection = OpenDinner.Domain.MenuAggregate.Entities.MenuSection;
 using MenuItem = OpenDinner.Domain.MenuAggregate.Entities.MenuItem;
+using MenuSection = OpenDinner.Domain.MenuAggregate.Entities.MenuSection;
 
 namespace OpenDinner.Api.Common.Mapping
 {
@@ -17,13 +17,14 @@ namespace OpenDinner.Api.Common.Mapping
 
             config.NewConfig<Menu, MenuResponse>()
                .Map(dest => dest.Id, src => src.Id.Value)
+               .Map(dest => dest.AverageRating, src => src.AverageRating.Value)
                .Map(dest => dest.HostId, src => src.HostId.Value)
-               .Map(dest => dest.DinnerIds, src => src.DinnerIds.Select( dinnerId => dinnerId.Value))
-               .Map(dest => dest.MenuReviewIds, src => src.MenuReviewIds.Select( menuReviewId => menuReviewId.Value));
+               .Map(dest => dest.DinnerIds, src => src.DinnerIds.Select(dinnerId => dinnerId.Value))
+               .Map(dest => dest.MenuReviewIds, src => src.MenuReviewIds.Select(menuReviewId => menuReviewId.Value));
 
             config.NewConfig<MenuSection, MenuSectionResponse>()
               .Map(dest => dest.Id, src => src.Id.Value);
-            
+
             config.NewConfig<MenuItem, MenuItemResponse>()
               .Map(dest => dest.Id, src => src.Id.Value);
         }

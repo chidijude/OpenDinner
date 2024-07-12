@@ -1,5 +1,5 @@
 @host=http://localhost:5260
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnaXZlbl9uYW1lIjoiQ2hpZGkiLCJmYW1pbHlfbmFtZSI6Ikp1ZGUiLCJqdGkiOiI5MGQ4ZjRiOC1iNWFkLTQ3MTEtOWZkMi05Njk5YjAwZjBlYjciLCJzdWIiOiJmMTQwMmQxNy01ZDYxLTQ2ZmEtOGU1Ni0zODFmMDA5ZGQ4ZjgiLCJleHAiOjE3MjA3NzY5NTUsImlzcyI6Ik9wZW5EaW5uZXIiLCJhdWQiOiJPcGVuRGlubmVyIn0.G_Jf_jj1M7u8rsxzsPdQMbKNz2Ux6YuCCegTJPSPqiQ
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnaXZlbl9uYW1lIjoiQ2hpZGkiLCJmYW1pbHlfbmFtZSI6Ikp1ZGUiLCJqdGkiOiJjMDc3ZDg1Yi1iNTczLTRmMDEtOTc5Zi1kZTMxNTIxMTNlZTUiLCJzdWIiOiJhZjM2M2Y5Mi1lYzJlLTRmNTUtOWViYy1kOWVkODZhN2E1MTIiLCJleHAiOjE3MjA4MDI1NjIsImlzcyI6Ik9wZW5EaW5uZXIiLCJhdWQiOiJPcGVuRGlubmVyIn0.z4zpWhLUpcTeCjFsBfYKQ5wo55ZwB8dmqcTep3Zwim8
 POST {{host}}/auth/register
 Content-Type: application/json
 
@@ -23,7 +23,7 @@ Content-Type: application/json
 
 GET {{host}}/dinners
 Content-Type: application/json
-Authorization: Bearer {{{token}}}
+Authorization: Bearer {{token}}
 
 ###
 @hostId=afda9665-1f48-4886-bc54-3a92d4249fab
@@ -32,11 +32,11 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "name" : "Yummy Menu",
-    "description" : "A menu with Yummy foods",
+    "name" : "Slim Menu",
+    "description" : "Yummy foods",
     "sections": [
         {
-            "name": "Appetizers",
+            "name": "Swallow",
             "description": "starters",
             "items": [
                 {

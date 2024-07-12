@@ -11,6 +11,13 @@ namespace OpenDinner.Domain.MenuAggregate.Entities
             Name = name;
             Description = description;
         }
+        #pragma warning disable CS8618
+        public MenuItem()
+        {
+            
+        }
+        #pragma warning restore CS8618
+
 
         public static MenuItem Create(string name, string description)
         {
@@ -20,7 +27,7 @@ namespace OpenDinner.Domain.MenuAggregate.Entities
                 description);
         }
 
-        public string Name { get; }
-        public string Description { get; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
     }
 }

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using OpenDinner.Infrastructure.Persistence.Repositories;
 
 namespace OpenDinner.Infrastructure;
 public static class DependencyInjection
@@ -18,13 +20,15 @@ public static class DependencyInjection
     {
         services
             .AddAuth(configuration)
-            .AddPersistence();
+            .AddPersistence(configuration);
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         return services;
     }
 
-    public static IServiceCollection AddPersistence(this IServiceCollection services)
+    public static IServiceCollection AddPersistence(this IServiceCollection services, ConfigurationManager configuration)
     {
+        services.AddDbContext<OpenDinnerDbContext>(options => options.UseSqlServer(
+           configuration.GetConnectionString("SqlServerConnectionString")));
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IMenuRepository, MenuRepository>();
         return services;

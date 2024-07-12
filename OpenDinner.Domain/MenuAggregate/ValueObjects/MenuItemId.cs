@@ -9,8 +9,13 @@ public sealed class MenuItemId : ValueObject
     {
         Value = value;
     }
+    public MenuItemId()
+    {
+        
+    }
 
     public static MenuItemId CreateUnique() => new(Guid.NewGuid());
+    public static MenuItemId Create(Guid value) => new(value);
 
     public override IEnumerable<object> GetEqualityComponents()
     {

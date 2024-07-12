@@ -10,6 +10,11 @@ public sealed class DinnerId : ValueObject
         Value = value;
     }
 
+    public DinnerId()
+    {
+            
+    }
+
     public static DinnerId CreateUnique() => new(Guid.NewGuid());
 
     public override IEnumerable<object> GetEqualityComponents()
