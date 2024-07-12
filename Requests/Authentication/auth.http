@@ -1,5 +1,5 @@
 @host=http://localhost:5260
-
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnaXZlbl9uYW1lIjoiQ2hpZGkiLCJmYW1pbHlfbmFtZSI6Ikp1ZGUiLCJqdGkiOiI5MGQ4ZjRiOC1iNWFkLTQ3MTEtOWZkMi05Njk5YjAwZjBlYjciLCJzdWIiOiJmMTQwMmQxNy01ZDYxLTQ2ZmEtOGU1Ni0zODFmMDA5ZGQ4ZjgiLCJleHAiOjE3MjA3NzY5NTUsImlzcyI6Ik9wZW5EaW5uZXIiLCJhdWQiOiJPcGVuRGlubmVyIn0.G_Jf_jj1M7u8rsxzsPdQMbKNz2Ux6YuCCegTJPSPqiQ
 POST {{host}}/auth/register
 Content-Type: application/json
 
@@ -23,4 +23,27 @@ Content-Type: application/json
 
 GET {{host}}/dinners
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJnaXZlbl9uYW1lIjoiQ2hpZGkiLCJmYW1pbHlfbmFtZSI6Ikp1ZGUiLCJqdGkiOiIzMjM3OTY0NC05NjFlLTQ1M2EtODY5Zi0xNWNhOWQ1NzJkM2MiLCJzdWIiOiJkMWUzNDFlNy1hOGUwLTRkOGItYjdiZS00ZDNkMTIwYWI0ZDkiLCJleHAiOjE3MjAwNTAzMTcsImlzcyI6Ik9wZW5EaW5uZXIiLCJhdWQiOiJPcGVuRGlubmVyIn0.b77nmrd4JEzVzTIRZ3DyEf2kONGB42_Wew2zXKwZijc
+Authorization: Bearer {{{token}}}
+
+###
+@hostId=afda9665-1f48-4886-bc54-3a92d4249fab
+POST {{host}}/hosts/{{hostId}}/menus
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name" : "Yummy Menu",
+    "description" : "A menu with Yummy foods",
+    "sections": [
+        {
+            "name": "Appetizers",
+            "description": "starters",
+            "items": [
+                {
+                    "name": "Fried Pickles",
+                    "description": "Deep fried pickles"
+                }
+            ]
+        }
+    ]
+}

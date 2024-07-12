@@ -18,8 +18,23 @@ public sealed class MenuSection : Entity<MenuSectionId>
         Name = name;
         Description = description;
     }
+    public MenuSection(MenuSectionId id, string name, string description, List<MenuItem> items)
+     : base(id)
+    {
+        Name = name;
+        Description = description;
+        _items = items;
+    }
 
     public static MenuSection Create(string name, string description)
+    {
+        return new(
+            MenuSectionId.CreateUnique(),
+            name,
+            description);
+    }
+
+    public static MenuSection Create(string name, string description, List<MenuItem> items)
     {
         return new(
             MenuSectionId.CreateUnique(),

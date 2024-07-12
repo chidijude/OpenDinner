@@ -36,6 +36,23 @@ public sealed class Menu : AggregateRoot<MenuId>
         UpdatedDateTime = updatedDateTime;
     }
 
+    public Menu(
+       MenuId id,
+       string name,
+       HostId hostId,
+       string description,
+       DateTime createdDateTime,
+       DateTime updatedDateTime,
+       List<MenuSection> sections) : base(id)
+    {
+        Name = name;
+        HostId = hostId;
+        Description = description;
+        CreatedDateTime = createdDateTime;
+        UpdatedDateTime = updatedDateTime;
+        _sections = sections;
+    }
+
     public static Menu Create(string name, string description, HostId hostId)
     {
         return new(
@@ -45,6 +62,17 @@ public sealed class Menu : AggregateRoot<MenuId>
             description,
             DateTime.UtcNow,
             DateTime.UtcNow);
+    }
+    public static Menu Create(string name, string description, HostId hostId, List<MenuSection> sections)
+    {
+        return new(
+            MenuId.CreateUnique(),
+            name,
+            hostId,
+            description,
+            DateTime.UtcNow,
+            DateTime.UtcNow,
+            sections);
     }
 
     public IReadOnlyList<MenuSection> Sections => _sections.AsReadOnly();
