@@ -3,6 +3,7 @@ using OpenDinner.Domain.Common.ValueObjects;
 using OpenDinner.Domain.DinnerAggregate.ValueObjects;
 using OpenDinner.Domain.HostAggregate.ValueObjects;
 using OpenDinner.Domain.MenuAggregate.Entities;
+using OpenDinner.Domain.MenuAggregate.Events;
 using OpenDinner.Domain.MenuAggregate.ValueObjects;
 using OpenDinner.Domain.MenuReviewAggregate.ValueObjects;
 
@@ -31,22 +32,6 @@ public sealed class Menu : AggregateRoot<MenuId>
 
 
     public Menu(
-        MenuId id, 
-        string name, 
-        HostId hostId,
-        string description, 
-        DateTime createdDateTime, 
-        DateTime updatedDateTime): base(id)
-    {
-        Name = name;
-        HostId = hostId;
-        Description = description;
-        CreatedDateTime = createdDateTime;
-        UpdatedDateTime = updatedDateTime;
-        AverageRating = AverageRating.CreateNew();
-    }
-
-    public Menu(
        MenuId id,
        string name,
        HostId hostId,
@@ -64,26 +49,21 @@ public sealed class Menu : AggregateRoot<MenuId>
         AverageRating = AverageRating.CreateNew();
     }
 
-    public static Menu Create(string name, string description, HostId hostId)
+   
+    public static Menu Create(string name, string description, HostId hostId, List<MenuSection>? sections = null)
     {
-        return new(
-            MenuId.CreateUnique(),
-            name,
-            hostId,
-            description,
-            DateTime.UtcNow,
-            DateTime.UtcNow);
-    }
-    public static Menu Create(string name, string description, HostId hostId, List<MenuSection> sections)
-    {
-        return new(
+        Menu menu = new(
             MenuId.CreateUnique(),
             name,
             hostId,
             description,
             DateTime.UtcNow,
             DateTime.UtcNow,
-            sections);
+            sections?? []);
+
+        menu.AddDomainEvent(new MenuCreated(menu));
+
+        return menu;
     }
 
     public IReadOnlyList<MenuSection> Sections => _sections.AsReadOnly();

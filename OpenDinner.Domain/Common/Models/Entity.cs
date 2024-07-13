@@ -1,9 +1,15 @@
-﻿namespace OpenDinner.Domain.Common.Models
+﻿
+namespace OpenDinner.Domain.Common.Models
 {
-    public abstract class Entity<TId> : IEquatable<Entity<TId>>
+    public abstract class Entity<TId> : IEquatable<Entity<TId>>, IHasDomainEvents
         where TId : notnull
     {
+        private readonly List<IDomainEvent> _domainEvents = [];
         public TId Id { get; protected set; }
+        public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+
+        //public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+
 
         protected Entity(TId id) 
         {
@@ -40,6 +46,16 @@
         public override int GetHashCode()
         {
             return Id.GetHashCode();
+        }
+
+        public void AddDomainEvent(IDomainEvent domainEvent)
+        {
+            _domainEvents.Add(domainEvent);
+        }
+
+        public void ClearDomainEvents()
+        {
+            _domainEvents.Clear();
         }
     }
 }

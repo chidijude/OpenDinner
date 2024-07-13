@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using OpenDinner.Infrastructure.Persistence.Repositories;
+using OpenDinner.Infrastructure.Persistence.Interceptors;
 
 namespace OpenDinner.Infrastructure;
 public static class DependencyInjection
@@ -31,6 +32,7 @@ public static class DependencyInjection
            configuration.GetConnectionString("SqlServerConnectionString")));
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IMenuRepository, MenuRepository>();
+        services.AddScoped<PublishDomainEventsInterceptor> ();
         return services;
     }
 
